@@ -1,3 +1,4 @@
+using Collections.Web.Extension;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,8 @@ builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration);
 });
 
+builder.Services.AddDatabase(builder.Configuration);
+builder.Services.AddIdentification();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
