@@ -7,10 +7,10 @@ namespace Collections.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -25,25 +25,36 @@ namespace Collections.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
         {
-            if (ModelState.IsValid) 
+            if (!ModelState.IsValid) return View(registerViewModel);
+
+            var user = await _userManager.FindByEmailAsync(registerViewModel.Email);
+
+            if (user != null)
             {
-                var user = new User { Email = registerViewModel.Email, UserName = registerViewModel.Email };
+                ModelState.AddModelError(string.Empty, "This email is already taken.");
 
-                var result = await _userManager.CreateAsync(user, registerViewModel.Password);
+                return View(registerViewModel);
+            }
 
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, false);
+            user = new ApplicationUser
+            {
+                Email = registerViewModel.Email,
+                UserName = registerViewModel.Email,
+                LockoutEnabled = false
+            };
 
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
+            var newUserResponse = await _userManager.CreateAsync(user, registerViewModel.Password);
+
+            if (newUserResponse.Succeeded)
+            {
+                await _signInManager.SignInAsync(user, isPersistent: false);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            foreach (var error in newUserResponse.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
             }
 
             return View(registerViewModel);
@@ -59,26 +70,36 @@ namespace Collections.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                var result = await _signInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, loginViewModel.RememberMe, false);
+            if (!ModelState.IsValid) return View(loginViewModel);
 
-                if (result.Succeeded)
+            var user = await _userManager.FindByEmailAsync(loginViewModel.Email);
+
+            if (user != null)
+            {
+                var passwordCheck = await _userManager.CheckPasswordAsync(user, loginViewModel.Password);
+
+                if (passwordCheck)
                 {
-                    if (!string.IsNullOrEmpty(loginViewModel.ReturnUrl) && Url.IsLocalUrl(loginViewModel.ReturnUrl))
-                    {
-                        return Redirect(loginViewModel.ReturnUrl);
-                    }
-                    else
+                    var result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, false, false);
+
+                    if (result.Succeeded)
                     {
                         return RedirectToAction("Index", "Home");
                     }
+                    if (result.IsLockedOut)
+                    {
+                        ModelState.AddModelError(string.Empty, "Account is blocked.");
+
+                        return View(loginViewModel);
+                    }
                 }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Incorrect login and (or) password");
-                }
+
+                ModelState.AddModelError(string.Empty, "Incorrect login and (or) password.");
+
+                return View(loginViewModel);
             }
+
+            ModelState.AddModelError(string.Empty, "Incorrect login and (or) password.");
 
             return View(loginViewModel);
         }

@@ -2,7 +2,7 @@
 
 namespace Collections.Web.Entities
 {
-    public class User : IdentityUser
+    public class ApplicationUser : IdentityUser
     {
 
     }

@@ -14,7 +14,5 @@ namespace Collections.Web.ViewModels
 
         [Display(Name = "Remember me")]
         public bool RememberMe { get; set; }
-
-        public string ReturnUrl { get; set; }
     }
 }

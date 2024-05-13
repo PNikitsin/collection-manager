@@ -15,7 +15,7 @@ namespace Collections.Web.Extension
                     options.LoginPath = new PathString("/Account/Login");
                 });
 
-            services.AddIdentity<User, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
