@@ -10,6 +10,11 @@ builder.Host.UseSerilog((context, configuration) =>
 
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddIdentification();
+builder.Services.AddSeedData();
+
+builder.Services.AddRouting(options
+    => options.LowercaseUrls = true);
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

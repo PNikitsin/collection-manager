@@ -1,4 +1,5 @@
 ﻿using Collections.Web.Entities;
+using Collections.Web.Enums;
 using Collections.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -47,6 +48,7 @@ namespace Collections.Web.Controllers
 
             if (newUserResponse.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, Roles.User.ToString());
                 await _signInManager.SignInAsync(user, isPersistent: false);
 
                 return RedirectToAction("Index", "Home");
