@@ -1,0 +1,19 @@
+﻿@model Collections.Web.ViewModels.EditUserViewModel;
+@{
+    ViewBag.Title = "Change user";
+}
+
+<form asp-action="Edit" asp-controller="Admin">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <input type="hidden" asp-for="Id" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="control-label">Email</label>
+        <input type="text" asp-for="Email" class="form-control" />
+    </div>
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-outline-secondary" />
+    </div>
+</form>
