@@ -33,7 +33,7 @@ namespace Collections.Web.Controllers
                 var userRoles = await _userManager.GetRolesAsync(user);
                 var allRoles = _roleManager.Roles.ToList();
 
-                var model = new ChangeRoleViewModel
+                var response = new ChangeRoleViewModel
                 {
                     UserId = user.Id,
                     UserEmail = user.Email,
@@ -41,7 +41,7 @@ namespace Collections.Web.Controllers
                     AllRoles = allRoles
                 };
 
-                return View(model);
+                return View(response);
             }
 
             return NotFound();
