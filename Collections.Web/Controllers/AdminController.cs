@@ -3,6 +3,7 @@ using Collections.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Collections.Web.Controllers
 {
@@ -95,6 +96,36 @@ namespace Collections.Web.Controllers
             }
 
             return View(model);
+        }
+
+        public async Task<IActionResult> Block(string id)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(user => user.Id == id);
+
+            if (user != null)
+            {
+                user.IsBlocked = true;
+                user.LockoutEnd = DateTimeOffset.MaxValue;
+            }
+
+            await _userManager.UpdateAsync(user);
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Unblock(string id)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(user => user.Id == id);
+
+            if (user != null)
+            {
+                user.IsBlocked = false;
+                user.LockoutEnd = DateTime.Now;
+            }
+
+            await _userManager.UpdateAsync(user);
+
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
