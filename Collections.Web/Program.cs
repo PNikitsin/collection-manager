@@ -1,4 +1,6 @@
 using Collections.Web.Extension;
+using Collections.Web.Services.Implementations;
+using Collections.Web.Services.Interfaces;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,7 @@ builder.Host.UseSerilog((context, configuration) =>
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddIdentification();
 builder.Services.AddSeedData();
+builder.Services.AddTransient<IImageService, ImageService>();
 
 builder.Services.AddRouting(options
     => options.LowercaseUrls = true);

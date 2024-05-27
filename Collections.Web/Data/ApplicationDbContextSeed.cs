@@ -36,7 +36,25 @@ namespace Collections.Web.Data
                 }
 
                 #endregion
+
+                #region category
+
+                if (!context!.Categories.Any())
+                {
+                    var categories = new Category[]
+                    {
+                        new() { Name = "Perfume" },
+                        new() { Name = "Alcohol" },
+                        new() { Name = "Books" },
+                        new() { Name = "Other" }
+                    };
+
+                    await context.Categories.AddRangeAsync(categories);
+                    await context.SaveChangesAsync();
+                }
+
+                #endregion
             }
         }
     } 
-} 
+}  
