@@ -40,7 +40,7 @@ namespace Collections.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CollectionViewModel model)
+        public async Task<IActionResult> Create(CreateCollectionViewModel model)
         {
             if (ModelState.IsValid) 
             {
@@ -60,6 +60,28 @@ namespace Collections.Web.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var collection = await _dbContext.Coollections.Include(x => x.Category)
+                .FirstOrDefaultAsync(collection => collection.Id == id);
+
+            var detailsCollectionViewModel = new DetailsCollectionViewModel
+            {
+                Id = collection.Id,
+                Name = collection.Name,
+                Category = collection.Category.Name,
+                Description = collection.Description,
+                CollectionPicture = collection.CollectionPicture,
+            };
+
+            return View(detailsCollectionViewModel);
         }
 
         [HttpPost]

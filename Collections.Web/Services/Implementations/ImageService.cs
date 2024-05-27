@@ -12,7 +12,7 @@ namespace Collections.Web.Services.Implementations
             _environment = environment;
         }
 
-        public string UploadImage(CollectionViewModel model)
+        public string UploadImage(CreateCollectionViewModel model)
         {
             string uniqueImageName = null;
             string path = Path.Combine(_environment.WebRootPath, "Uploads");

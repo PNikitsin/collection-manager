@@ -4,6 +4,6 @@ namespace Collections.Web.Services.Interfaces
 {
     public interface IImageService
     {
-        public string UploadImage(CollectionViewModel model);
+        public string UploadImage(CreateCollectionViewModel model);
     }
 }

@@ -4,7 +4,7 @@
     ViewData["Title"] = "My collections";
 }
 
-<a asp-action="Create">Create a new collection</a>
+<a asp-controller="Collection" asp-action="Create">Create a new collection</a>
 
 <div class="row">
     @foreach (var item in Model)

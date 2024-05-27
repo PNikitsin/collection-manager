@@ -1,6 +1,6 @@
 ﻿namespace Collections.Web.Helpers
 {
-    public class ImageLocationHelper
+    public static class ImageLocationHelper
     {
         public const string FileUploadFolder = "Uploads";
         public const string RetriveFileFromFolder = "~/Uploads/";

@@ -2,7 +2,7 @@
 
 namespace Collections.Web.ViewModels
 {
-    public class CollectionViewModel
+    public class CreateCollectionViewModel
     {
         [Required]
         public string Name { get; set; }
@@ -15,4 +15,4 @@ namespace Collections.Web.ViewModels
         [Display(Name = "Picture")]
         public IFormFile CollectionPicture { get; set; }
     }
-}
+} 
