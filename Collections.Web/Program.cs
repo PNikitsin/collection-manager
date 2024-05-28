@@ -22,6 +22,8 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+await ApplicationDbContextSeed.SeedEssentialsAsync(app);
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -41,5 +43,3 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-
-await ApplicationDbContextSeed.SeedEssentialsAsync(app);
