@@ -1,0 +1,45 @@
+﻿@using Collections.Web.Helpers
+@model Collections.Web.ViewModels.DetailsCollectionViewModel
+
+@{
+    ViewData["Title"] = "Edit collection";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="text-uppercase">Collection details</h3>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Category)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CollectionPicture)
+            </dt>
+            <dd class="col-sm-2">
+                <img src="@ImageLocationHelper.RetriveFileFromFolder@Model.CollectionPicture" class="img-thumbnail" height="100" width="100" asp-append-version="true" />
+            </dd>
+        </dl>
+        <div>
+            <a asp-action="Index" class="btn btn-sm btn-primary rounded-0"><i class="fas fa-fast-backward"></i> Back to List</a>
+        </div>
+    </div>
+</div>
+
+<a asp-action="Create" asp-controller="item" asp-route-id="@Model.Id">Add a new item</a>

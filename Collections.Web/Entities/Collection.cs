@@ -8,7 +8,10 @@
         public string CollectionPicture { get; set; }
 
         public string ApplicationUserId { get; set; }
+
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+
+        public List<Item> Items { get; set; }
     }
 }

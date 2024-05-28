@@ -8,6 +8,8 @@ namespace Collections.Web.Data
     {
         public DbSet<Category> Categories { get; set; }
         public DbSet<Collection> Coollections { get; set; }
+        public DbSet<Item> Items { get; set; }
+
         public DbSet<ApplicationUser> Users {  get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

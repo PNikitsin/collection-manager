@@ -62,6 +62,7 @@ namespace Collections.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -69,7 +70,32 @@ namespace Collections.Web.Controllers
                 return NotFound();
             }
 
-            var collection = await _dbContext.Coollections.Include(x => x.Category)
+            var collection = await _dbContext.Coollections
+                .Include(Category => Category.Category)
+                .Include(Items => Items.Items)
+                .FirstOrDefaultAsync(collection => collection.Id == id);
+
+            var detailsCollectionViewModel = new DetailsCollectionViewModel
+            {
+                Id = collection.Id,
+                Name = collection.Name,
+                Category = collection.Category.Name,
+                Description = collection.Description,
+                CollectionPicture = collection.CollectionPicture,
+            };
+
+            return View(detailsCollectionViewModel);
+        }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var collection = await _dbContext.Coollections
+                .Include(Category => Category.Category)
                 .FirstOrDefaultAsync(collection => collection.Id == id);
 
             var detailsCollectionViewModel = new DetailsCollectionViewModel

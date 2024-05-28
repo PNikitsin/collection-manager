@@ -1,0 +1,38 @@
+﻿@model Collections.Web.ViewModels.CreateItemViewModel
+
+@{
+    ViewData["Title"] = "Create item";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="text-uppercase">New collection</h3>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-sm btn-primary rounded-0" />
+                <a asp-action="Edit" asp-controller="Collection" class="btn btn-sm btn-primary rounded-0">Back to collection</a>
+            </div>
+        </form>
+    </div>
+</div>
