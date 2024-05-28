@@ -47,7 +47,8 @@ namespace Collections.Web.Controllers
             {
                 Name = model.Name,
                 Description = model.Description,
-                CollectionId = model.Id
+                CollectionId = model.Id,
+                CreatedAt = DateTime.UtcNow,
             };
 
             await _dbContext.Items.AddAsync(item);
