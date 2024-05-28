@@ -1,6 +1,6 @@
-﻿using Collections.Web.Entities;
-using Collections.Web.Enums;
-using Collections.Web.ViewModels;
+﻿using Collections.Domain.Entities;
+using Collections.Domain.Enums;
+using Collections.Web.ViewModels.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

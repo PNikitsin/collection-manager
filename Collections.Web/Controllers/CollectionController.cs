@@ -1,5 +1,5 @@
-﻿using Collections.Web.Data;
-using Collections.Web.Entities;
+﻿using Collections.Infrastructure.Data;
+using Collections.Domain.Entities;
 using Collections.Web.Extension;
 using Collections.Web.Services.Interfaces;
 using Collections.Web.ViewModels;
@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Collections.Web.ViewModels.Collection;
 
 namespace Collections.Web.Controllers
 {

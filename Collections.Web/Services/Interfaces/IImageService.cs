@@ -1,4 +1,4 @@
-﻿using Collections.Web.ViewModels;
+﻿using Collections.Web.ViewModels.Collection;
 
 namespace Collections.Web.Services.Interfaces
 {

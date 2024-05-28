@@ -1,14 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Collections.Web.ViewModels
+namespace Collections.Web.ViewModels.Account
 {
-    public class CreateUserViewModel
+    public class LoginViewModel
     {
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        [Display(Name = "Remember me")]
+        public bool RememberMe { get; set; }
     }
 }

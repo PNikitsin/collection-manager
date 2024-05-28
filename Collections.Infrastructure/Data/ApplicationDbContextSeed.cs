@@ -1,8 +1,9 @@
-﻿using Collections.Web.Entities;
-using Collections.Web.Enums;
+﻿using Collections.Domain.Entities;
+using Collections.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Collections.Web.Data
+namespace Collections.Infrastructure.Data
 {
     public static class ApplicationDbContextSeed
     {
@@ -16,7 +17,7 @@ namespace Collections.Web.Data
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
                 await roleManager.CreateAsync(new IdentityRole(Roles.Administrator.ToString()));
-                await roleManager.CreateAsync(new IdentityRole(Roles.User.ToString())); 
+                await roleManager.CreateAsync(new IdentityRole(Roles.User.ToString()));
 
                 #region developer
 
@@ -56,5 +57,5 @@ namespace Collections.Web.Data
                 #endregion
             }
         }
-    } 
-}  
+    }
+}

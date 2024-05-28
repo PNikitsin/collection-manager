@@ -1,4 +1,4 @@
-﻿using Collections.Web.Data;
+﻿using Collections.Infrastructure.Data;
 
 namespace Collections.Web.Extension
 {

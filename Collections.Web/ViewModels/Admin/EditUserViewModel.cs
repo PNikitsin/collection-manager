@@ -1,4 +1,4 @@
-﻿namespace Collections.Web.ViewModels
+﻿namespace Collections.Web.ViewModels.Admin
 {
     public class EditUserViewModel
     {

@@ -1,4 +1,4 @@
-﻿using Collections.Web.Data;
+﻿using Collections.Infrastructure.Data;
 using Collections.Web.Extension;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

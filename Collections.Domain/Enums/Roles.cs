@@ -1,4 +1,4 @@
-﻿namespace Collections.Web.Enums
+﻿namespace Collections.Domain.Enums
 {
     public enum Roles
     {

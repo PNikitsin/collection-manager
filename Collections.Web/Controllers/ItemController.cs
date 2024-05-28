@@ -1,11 +1,13 @@
-﻿using Collections.Web.Data;
-using Collections.Web.Entities;
-using Collections.Web.ViewModels;
+﻿using Collections.Infrastructure.Data;
+using Collections.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Collections.Web.ViewModels.Item;
 
 namespace Collections.Web.Controllers
 {
+    [Authorize]
     public class ItemController : Controller
     {
         private readonly ApplicationDbContext _dbContext;

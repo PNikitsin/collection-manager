@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Collections.Web.ViewModels
+namespace Collections.Web.ViewModels.Collection
 {
     public class CreateCollectionViewModel
     {
@@ -15,4 +15,4 @@ namespace Collections.Web.ViewModels
         [Display(Name = "Picture")]
         public IFormFile CollectionPicture { get; set; }
     }
-} 
+}

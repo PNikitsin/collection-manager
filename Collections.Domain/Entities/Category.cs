@@ -1,4 +1,4 @@
-﻿namespace Collections.Web.Entities
+﻿namespace Collections.Domain.Entities
 {
     public class Category
     {

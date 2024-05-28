@@ -1,5 +1,5 @@
-﻿using Collections.Web.Data;
-using Collections.Web.Entities;
+﻿using Collections.Domain.Entities;
+using Collections.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 

@@ -1,5 +1,5 @@
-﻿using Collections.Web.Entities;
-using Collections.Web.ViewModels;
+﻿using Collections.Domain.Entities;
+using Collections.Web.ViewModels.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
