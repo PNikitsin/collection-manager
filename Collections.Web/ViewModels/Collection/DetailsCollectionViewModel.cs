@@ -8,6 +8,7 @@ namespace Collections.Web.ViewModels.Collection
         public string Name { get; set; }
         public string Category { get; set; }
         public string Description { get; set; }
+        public string Author { get; set; }
         public List<Collections.Domain.Entities.Item> Items { get; set; }
 
         [Display(Name = "Image")]

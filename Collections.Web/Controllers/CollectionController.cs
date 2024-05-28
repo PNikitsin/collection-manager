@@ -52,6 +52,7 @@ namespace Collections.Web.Controllers
                     Description = model.Description,
                     CollectionPicture = uniqueFileName,
                     ApplicationUserId = User.GetUserId(),
+                    Author = User.Identity.Name,
                     CategoryId = model.CategoryId,
                 };
 
@@ -83,6 +84,7 @@ namespace Collections.Web.Controllers
                 Name = collection.Name,
                 Category = collection.Category.Name,
                 Description = collection.Description,
+                Author = collection.Author,
                 CollectionPicture = collection.CollectionPicture,
                 Items = items,
             };
@@ -109,6 +111,7 @@ namespace Collections.Web.Controllers
                 Name = collection.Name,
                 Category = collection.Category.Name,
                 Description = collection.Description,
+                Author = collection.Author,
                 CollectionPicture = collection.CollectionPicture,
                 Items = items,
             };
