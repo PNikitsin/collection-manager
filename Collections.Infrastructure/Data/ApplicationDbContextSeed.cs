@@ -1,5 +1,6 @@
 ﻿using Collections.Domain.Entities;
 using Collections.Domain.Enums;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,9 +8,9 @@ namespace Collections.Infrastructure.Data
 {
     public static class ApplicationDbContextSeed
     {
-        public static async Task SeedEssentialsAsync(IServiceProvider serviceProvider)
+        public static async Task SeedEssentialsAsync(IApplicationBuilder applicationBuilder)
         {
-            using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            using (var scope = applicationBuilder.ApplicationServices.CreateScope())
             {
                 var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
