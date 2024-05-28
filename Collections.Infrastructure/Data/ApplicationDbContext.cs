@@ -1,6 +1,8 @@
 ﻿using Collections.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
+using System.Reflection;
 
 namespace Collections.Infrastructure.Data
 {
@@ -14,5 +16,11 @@ namespace Collections.Infrastructure.Data
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { Database.EnsureCreated(); }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(builder);
+        }
     }
 }

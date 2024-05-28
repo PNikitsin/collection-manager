@@ -26,6 +26,7 @@ namespace Collections.Web.Controllers
             return View(model); 
         }
 
+        [AllowAnonymous]
         public async Task <IActionResult> Details(int id)
         {
             var item = await _dbContext.Items.FirstOrDefaultAsync(c => c.Id == id);
