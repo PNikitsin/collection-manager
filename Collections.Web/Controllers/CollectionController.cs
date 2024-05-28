@@ -2,7 +2,6 @@
 using Collections.Domain.Entities;
 using Collections.Web.Extension;
 using Collections.Web.Services.Interfaces;
-using Collections.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -76,6 +75,8 @@ namespace Collections.Web.Controllers
                 .Include(Items => Items.Items)
                 .FirstOrDefaultAsync(collection => collection.Id == id);
 
+            var items = _dbContext.Items.Where(item => item.CollectionId == collection.Id).ToList();
+
             var detailsCollectionViewModel = new DetailsCollectionViewModel
             {
                 Id = collection.Id,
@@ -83,6 +84,7 @@ namespace Collections.Web.Controllers
                 Category = collection.Category.Name,
                 Description = collection.Description,
                 CollectionPicture = collection.CollectionPicture,
+                Items = items,
             };
 
             return View(detailsCollectionViewModel);
@@ -99,6 +101,8 @@ namespace Collections.Web.Controllers
                 .Include(Category => Category.Category)
                 .FirstOrDefaultAsync(collection => collection.Id == id);
 
+            var items = _dbContext.Items.Where(item => item.CollectionId == collection.Id).ToList();
+
             var detailsCollectionViewModel = new DetailsCollectionViewModel
             {
                 Id = collection.Id,
@@ -106,6 +110,7 @@ namespace Collections.Web.Controllers
                 Category = collection.Category.Name,
                 Description = collection.Description,
                 CollectionPicture = collection.CollectionPicture,
+                Items = items,
             };
 
             return View(detailsCollectionViewModel);
