@@ -55,7 +55,7 @@ namespace Collections.Web.Controllers
             await _dbContext.Items.AddAsync(item);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("Edit", "Collection", new { Id = model.Id });
+            return RedirectToAction("Details", "Collection", new { Id = model.Id });
         }
 
         [HttpPost]
@@ -71,7 +71,7 @@ namespace Collections.Web.Controllers
             _dbContext.Items.Remove(item);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("Edit", "Collection", new { Id = item.CollectionId });
+            return RedirectToAction("Details", "Collection", new { Id = item.CollectionId });
         }
     }
 }
