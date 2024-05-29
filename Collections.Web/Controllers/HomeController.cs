@@ -32,13 +32,13 @@ namespace Collections.Web.Controllers
                 .Include(collection => collection.Category)
                 .ToList();
 
-            var homeViewModel = new HomeViewModel 
+            var response = new HomeViewModel 
             {
                 LatestItems = latestItems,
                 LargestCollections = largestCollections
             };
 
-            return View(homeViewModel);
+            return View(response);
         }
 
         public IActionResult Privacy()
