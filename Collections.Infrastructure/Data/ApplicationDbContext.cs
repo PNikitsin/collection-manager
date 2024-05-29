@@ -1,7 +1,6 @@
 ﻿using Collections.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 using System.Reflection;
 
 namespace Collections.Infrastructure.Data
@@ -11,7 +10,6 @@ namespace Collections.Infrastructure.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Collection> Coollections { get; set; }
         public DbSet<Item> Items { get; set; }
-
         public DbSet<ApplicationUser> Users { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
