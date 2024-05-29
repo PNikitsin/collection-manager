@@ -92,33 +92,6 @@ namespace Collections.Web.Controllers
             return View(detailsCollectionViewModel);
         }
 
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var collection = await _dbContext.Coollections
-                .Include(Category => Category.Category)
-                .FirstOrDefaultAsync(collection => collection.Id == id);
-
-            var items = _dbContext.Items.Where(item => item.CollectionId == collection.Id).ToList();
-
-            var detailsCollectionViewModel = new DetailsCollectionViewModel
-            {
-                Id = collection.Id,
-                Name = collection.Name,
-                Category = collection.Category.Name,
-                Description = collection.Description,
-                Author = collection.Author,
-                CollectionPicture = collection.CollectionPicture,
-                Items = items,
-            };
-
-            return View(detailsCollectionViewModel);
-        }
-
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
