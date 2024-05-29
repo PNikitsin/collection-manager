@@ -63,6 +63,32 @@ namespace Collections.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var responce = new EditCollectionViewModel { Id = id };
+
+            return View(responce);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditCollectionViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            string uniqueFileName = _imageService.UploadImage(model);
+
+            var collection = await _dbContext.Coollections.FirstOrDefaultAsync(collection => collection.Id == model.Id);
+            collection.Name = model.Name;
+            collection.Description = model.Description;
+            collection.CollectionPicture = uniqueFileName;
+
+            _dbContext.Coollections.Update(collection);
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Details", "Collection", new { Id = model.Id });
+        }
+
         [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
