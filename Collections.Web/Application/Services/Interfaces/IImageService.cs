@@ -1,6 +1,6 @@
 ﻿using Collections.Web.ViewModels.Collection;
 
-namespace Collections.Web.Services.Interfaces
+namespace Collections.Web.Application.Services.Interfaces
 {
     public interface IImageService
     {

@@ -1,7 +1,7 @@
-﻿using Collections.Web.Services.Interfaces;
+﻿using Collections.Web.Application.Services.Interfaces;
 using Collections.Web.ViewModels.Collection;
 
-namespace Collections.Web.Services.Implementations
+namespace Collections.Web.Application.Services.Implementations
 {
     public class ImageService : IImageService
     {
@@ -61,5 +61,5 @@ namespace Collections.Web.Services.Implementations
 
             return uniqueImageName;
         }
-    } 
+    }
 }

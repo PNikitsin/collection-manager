@@ -1,12 +1,13 @@
 ﻿using Collections.Infrastructure.Data;
 using Collections.Domain.Entities;
 using Collections.Web.Extension;
-using Collections.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Collections.Web.ViewModels.Collection;
+using Collections.Web.Application.Services.Interfaces;
+using AutoMapper;
 
 namespace Collections.Web.Controllers
 {
@@ -15,11 +16,13 @@ namespace Collections.Web.Controllers
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IImageService _imageService;
+        private readonly IMapper _mapper;
 
-        public CollectionController(ApplicationDbContext dbContext, IImageService imageService)
+        public CollectionController(ApplicationDbContext dbContext, IImageService imageService, IMapper mapper)
         {
             _dbContext = dbContext;
             _imageService = imageService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -40,25 +43,23 @@ namespace Collections.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCollectionViewModel model)
+        public async Task<IActionResult> Create(CreateCollectionViewModel createCollectionViewModel)
         {
-            if (ModelState.IsValid) 
+            if (!ModelState.IsValid)
             {
-                string uniqueFileName = _imageService.UploadImage(model);
-
-                var collection = new Collection()
-                {
-                    Name = model.Name,
-                    Description = model.Description,
-                    CollectionPicture = uniqueFileName,
-                    ApplicationUserId = User.GetUserId(),
-                    Author = User.Identity.Name,
-                    CategoryId = model.CategoryId,
-                };
-
-                await _dbContext.Coollections.AddAsync(collection);
-                await _dbContext.SaveChangesAsync();
+                return View(createCollectionViewModel);
             }
+
+            string uniqueFileName = _imageService.UploadImage(createCollectionViewModel);
+
+            var collection = _mapper.Map<Collection>(createCollectionViewModel);
+
+            collection.ApplicationUserId = User.GetUserId();
+            collection.Author = User.Identity.Name;
+            collection.CollectionPicture = uniqueFileName;
+
+            await _dbContext.Coollections.AddAsync(collection);
+            await _dbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");
         }
@@ -104,18 +105,10 @@ namespace Collections.Web.Controllers
 
             var items = _dbContext.Items.Where(item => item.CollectionId == collection.Id).ToList();
 
-            var detailsCollectionViewModel = new DetailsCollectionViewModel
-            {
-                Id = collection.Id,
-                Name = collection.Name,
-                Category = collection.Category.Name,
-                Description = collection.Description,
-                Author = collection.Author,
-                CollectionPicture = collection.CollectionPicture,
-                Items = items,
-            };
+            var response = _mapper.Map<DetailsCollectionViewModel>(collection);
+            collection.Items = items;
 
-            return View(detailsCollectionViewModel);
+            return View(response);
         }
 
         [HttpPost]
