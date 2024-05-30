@@ -3,6 +3,7 @@ using Collections.Domain.Enums;
 using Collections.Web.ViewModels.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Collections.Web.Controllers
 {
@@ -104,6 +105,80 @@ namespace Collections.Web.Controllers
             ModelState.AddModelError(string.Empty, "Incorrect login and (or) password.");
 
             return View(loginViewModel);
+        }
+
+        public async Task<IActionResult> External()
+        {
+            var response = new ExternalViewModel()
+            {
+                Schemes = await _signInManager.GetExternalAuthenticationSchemesAsync()
+            };
+
+            return View(response);
+        }
+
+        public IActionResult ExternalLogin(string provider, string returnUrl = "")
+        {
+            var redirectUrl = Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl });
+
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+
+            return new ChallengeResult(provider, properties);
+        }
+
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = "", string remoteError = "")
+        {
+            var loginVM = new ExternalViewModel()
+            {
+                Schemes = await _signInManager.GetExternalAuthenticationSchemesAsync()
+            };
+
+            if (!string.IsNullOrEmpty(remoteError))
+            {
+                ModelState.AddModelError("", $"Error from extranal login provide: {remoteError}");
+                return View("Login", loginVM);
+            }
+
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                ModelState.AddModelError("", $"Error from extranal login provide: {remoteError}");
+                return View("Login", loginVM);
+            }
+
+            var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+
+            if (signInResult.Succeeded)
+                return RedirectToAction("Index", "Home");
+            else
+            {
+                var userEmail = info.Principal.FindFirstValue(ClaimTypes.Email);
+                if (!string.IsNullOrEmpty(userEmail))
+                {
+                    var user = await _userManager.FindByEmailAsync(userEmail);
+
+                    if (user == null)
+                    {
+                        user = new ApplicationUser()
+                        {
+                            UserName = userEmail,
+                            Email = userEmail,
+                            EmailConfirmed = true
+                        };
+
+                        await _userManager.CreateAsync(user);
+                        await _userManager.AddToRoleAsync(user, Roles.User.ToString());
+                    }
+
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+            }
+
+            ModelState.AddModelError("", $"Something went wrong");
+            return View("Login", loginVM);
         }
 
         [HttpPost]

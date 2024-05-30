@@ -13,7 +13,7 @@ builder.Host.UseSerilog((context, configuration) =>
 });
 
 builder.Services.AddDatabase(builder.Configuration);
-builder.Services.AddIdentification();
+builder.Services.AddIdentification(builder.Configuration);
 builder.Services.AddTransient<IImageService, ImageService>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 

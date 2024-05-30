@@ -7,12 +7,21 @@ namespace Collections.Web.Extension
 {
     public static class IdentityExtension
     {
-        public static IServiceCollection AddIdentification(this IServiceCollection services)
+        public static IServiceCollection AddIdentification(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
                     options.LoginPath = new PathString("/Account/Login");
+                }).AddGoogle(options =>
+                {
+                    options.ClientId = configuration["Authentication:Google:ClientId"];
+                    options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+                })
+                .AddFacebook(options =>
+                {
+                    options.AppId = configuration["Authentication:Facebook:AppId"];
+                    options.AppSecret = configuration["Authentication:Facebook:AppSecret"];
                 });
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>

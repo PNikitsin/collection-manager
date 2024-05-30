@@ -29,6 +29,9 @@
                 <div class="col-8">
                     <a asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" class="text-decoration-none float-start mt-2">Have account?</a>
                 </div>
+                <div class="col-8">
+                    <a asp-action="External" class="text-decoration-none float-start mt-2" asp-route-returnurl="@ViewData["ReturnUrl"]">Use social networks</a>
+                </div>
                 <div class="col-4">
                     <input type="submit" value="Register" class="btn btn-primary btn-sm float-end" />
                 </div>

@@ -1,0 +1,53 @@
+﻿@using Collections.Web.ViewModels.Account
+@model ExternalViewModel
+@{
+    ViewBag.Title = "Login external";
+}
+
+<div class="row pt-2">
+    <div class="col-md-8 offset-md-2">
+        <h5>You can use</h5>
+        <hr />
+
+        @if (Model.Schemes.Count() == 0)
+        {
+            <div>No external login providers have configured</div>
+        }
+        else
+        {
+            <form asp-action="ExternalLogin">
+                <div>
+                    @foreach (var provider in Model.Schemes)
+                    {
+                        <p>
+                            @if (provider.DisplayName.Equals("Google"))
+                            {
+                                <button type="submit" class="fa fa-google" name="provider"
+                                        value="@provider.Name" title="Log in using your
+                                    @provider.DisplayName account">
+                                    <span class="si-text">Sign up with @provider.DisplayName</span>
+                                </button>
+                            }
+                            else if (provider.DisplayName.Equals("Facebook"))
+                            {
+                                <button type="submit" class="fa fa-facebook" name="provider"
+                                        value="@provider.Name" title="Log in using your
+                                    @provider.DisplayName account">
+                                    <span class="si-text">Sign up with @provider.DisplayName</span>
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="btn btn-primary" name="provider"
+                                        value="@provider.Name" title="Log in using your
+                                @provider.DisplayName account">
+                                    @provider.DisplayName
+                                </button>
+                            }
+                        </p>
+                    }
+                </div>
+            </form>
+        }
+    </div>
+</div>
