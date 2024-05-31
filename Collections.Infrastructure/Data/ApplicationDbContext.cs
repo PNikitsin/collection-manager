@@ -13,7 +13,7 @@ namespace Collections.Infrastructure.Data
         public DbSet<ApplicationUser> Users { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options) { Database.EnsureCreated(); }
+            : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
