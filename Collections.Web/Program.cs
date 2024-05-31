@@ -1,8 +1,8 @@
 using Collections.Infrastructure.Data;
 using Collections.Web.Application.AutoMapper;
+using Collections.Web.Application.Extension;
 using Collections.Web.Application.Services.Implementations;
 using Collections.Web.Application.Services.Interfaces;
-using Collections.Web.Extension;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);

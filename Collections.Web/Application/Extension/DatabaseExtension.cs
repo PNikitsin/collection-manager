@@ -1,7 +1,7 @@
 ﻿using Collections.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Collections.Web.Extension
+namespace Collections.Web.Application.Extension
 {
     public static class DatabaseExtension
     {

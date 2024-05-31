@@ -1,4 +1,4 @@
-﻿namespace Collections.Web.Helpers
+﻿namespace Collections.Web.Application.Helpers
 {
     public static class ImageLocationHelper
     {
@@ -6,4 +6,4 @@
         public const string RetriveFileFromFolder = "~/Uploads/";
         public const string DeleteFileFromFolder = "wwwroot\\Uploads\\";
     }
-} 
+}

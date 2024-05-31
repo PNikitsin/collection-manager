@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace Collections.Web.Extension
+namespace Collections.Web.Application.Extension
 {
     public static class ClaimsPrincipalExtension
     {

@@ -1,5 +1,5 @@
 ﻿using Collections.Infrastructure.Data;
-using Collections.Web.Extension;
+using Collections.Web.Application.Extension;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

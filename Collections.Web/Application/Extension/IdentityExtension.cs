@@ -3,7 +3,7 @@ using Collections.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 
-namespace Collections.Web.Extension
+namespace Collections.Web.Application.Extension
 {
     public static class IdentityExtension
     {

@@ -1,5 +1,5 @@
 using Collections.Infrastructure.Data;
-using Collections.Web.Models;
+using Collections.Web.ViewModels;
 using Collections.Web.ViewModels.Home;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
