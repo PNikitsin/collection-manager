@@ -30,7 +30,7 @@ namespace Collections.Infrastructure.Data
                     PhoneNumberConfirmed = true,
                 };
 
-                if (!context!.Users.Any(u => u.UserName == developer.UserName))
+                if (!context!.Users.Any(user => user.UserName == developer.UserName))
                 {
                     await userManager.CreateAsync(developer, "Pa$$w0rd");
                     await userManager.AddToRoleAsync(developer, Roles.Administrator.ToString());
