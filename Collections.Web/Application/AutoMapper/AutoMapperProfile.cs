@@ -10,7 +10,8 @@ namespace Collections.Web.Application.AutoMapper
         public AutoMapperProfile()
         {
             CreateMap<CreateCollectionViewModel, Collection>();
-            CreateMap<Collection, DetailsCollectionViewModel>();
+            CreateMap<Collection, DetailsCollectionViewModel>()
+                .ForMember(dest => dest.Category, act => act.MapFrom(src => src.Category.Name));
             CreateMap<Item, ItemViewModel>();
         }
     }
