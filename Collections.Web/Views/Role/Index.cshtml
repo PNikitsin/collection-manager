@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Collections.Domain.Entities.ApplicationUser>
 
-<h2>Application users</h2>
+<p><a asp-action="Index" asp-controller="Admin" class="btn btn-sm btn-primary">Users</a></p>
 <table class="table">
     @foreach (var user in Model)
     {
