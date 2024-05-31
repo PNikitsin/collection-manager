@@ -29,13 +29,13 @@ namespace Collections.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateUserViewModel model)
+        public async Task<IActionResult> Create(CreateUserViewModel createUserViewModel)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { Email = model.Email, UserName = model.Email };
+                var user = new ApplicationUser { Email = createUserViewModel.Email, UserName = createUserViewModel.Email };
 
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync(user, createUserViewModel.Password);
 
                 if (result.Succeeded)
                 {
@@ -50,7 +50,7 @@ namespace Collections.Web.Controllers
                 }
             }
 
-            return View(model);
+            return View(createUserViewModel);
         }
 
         public async Task<IActionResult> Edit(string id)
@@ -68,16 +68,16 @@ namespace Collections.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EditUserViewModel model)
+        public async Task<IActionResult> Edit(EditUserViewModel editUserViewModel)
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByIdAsync(model.Id);
+                var user = await _userManager.FindByIdAsync(editUserViewModel.Id);
 
                 if (user != null)
                 {
-                    user.Email = model.Email;
-                    user.UserName = model.Email;
+                    user.Email = editUserViewModel.Email;
+                    user.UserName = editUserViewModel.Email;
 
                     var result = await _userManager.UpdateAsync(user);
 
@@ -95,7 +95,7 @@ namespace Collections.Web.Controllers
                 }
             }
 
-            return View(model);
+            return View(editUserViewModel);
         }
 
         public async Task<IActionResult> Block(string id)

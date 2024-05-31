@@ -18,10 +18,10 @@ namespace Collections.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var collections = _dbContext.Coollections.Where(collection
+            var response = _dbContext.Coollections.Where(collection
                 => collection.ApplicationUserId == User.GetUserId());
 
-            return View(collections);
+            return View(response);
         }
     }
 }

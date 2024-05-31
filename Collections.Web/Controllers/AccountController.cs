@@ -128,7 +128,7 @@ namespace Collections.Web.Controllers
 
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = "", string remoteError = "")
         {
-            var loginVM = new ExternalViewModel()
+            var loginViewModel = new ExternalViewModel()
             {
                 Schemes = await _signInManager.GetExternalAuthenticationSchemesAsync()
             };
@@ -136,23 +136,26 @@ namespace Collections.Web.Controllers
             if (!string.IsNullOrEmpty(remoteError))
             {
                 ModelState.AddModelError("", $"Error from extranal login provide: {remoteError}");
-                return View("Login", loginVM);
+                return View("Login", loginViewModel);
             }
 
             var info = await _signInManager.GetExternalLoginInfoAsync();
+
             if (info == null)
             {
                 ModelState.AddModelError("", $"Error from extranal login provide: {remoteError}");
-                return View("Login", loginVM);
+                return View("Login", loginViewModel);
             }
 
             var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
 
             if (signInResult.Succeeded)
                 return RedirectToAction("Index", "Home");
+
             else
             {
                 var userEmail = info.Principal.FindFirstValue(ClaimTypes.Email);
+
                 if (!string.IsNullOrEmpty(userEmail))
                 {
                     var user = await _userManager.FindByEmailAsync(userEmail);
@@ -178,7 +181,8 @@ namespace Collections.Web.Controllers
             }
 
             ModelState.AddModelError("", $"Something went wrong");
-            return View("Login", loginVM);
+
+            return View("Login", loginViewModel);
         }
 
         [HttpPost]
