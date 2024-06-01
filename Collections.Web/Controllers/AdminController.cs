@@ -1,4 +1,5 @@
-﻿using Collections.Domain.Entities;
+﻿using AutoMapper;
+using Collections.Domain.Entities;
 using Collections.Web.ViewModels.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -11,15 +12,19 @@ namespace Collections.Web.Controllers
     public class AdminController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IMapper _mapper;
 
-        public AdminController(UserManager<ApplicationUser> userManager)
+        public AdminController(UserManager<ApplicationUser> userManager, IMapper mapper)
         {
             _userManager = userManager;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
-            var response = _userManager.Users.ToList();
+            var users = _userManager.Users.ToList();
+            var response = _mapper.Map<IEnumerable<UserViewModel>>(users);
+
             return View(response);
         }
 
