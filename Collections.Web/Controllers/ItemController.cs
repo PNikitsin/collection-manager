@@ -32,7 +32,10 @@ namespace Collections.Web.Controllers
         [AllowAnonymous]
         public async Task <IActionResult> Details(int id)
         {
-            var item = await _dbContext.Items.FirstOrDefaultAsync(item => item.Id == id);
+            var item = await _dbContext.Items
+                .Include(item => item.Likes)
+                .FirstOrDefaultAsync(item => item.Id == id);
+
             var response = _mapper.Map<ItemViewModel>(item);
 
             return View(response);
@@ -74,6 +77,33 @@ namespace Collections.Web.Controllers
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction("Details", "Collection", new { Id = item.CollectionId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddLike(int id)
+        {
+            var like = new Like
+            {
+                ItemId = id,
+                Username = HttpContext.User.Identity.Name
+            };
+
+            await _dbContext.Likes.AddAsync(like);
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Details", "Item", new { Id = id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveLike(int id)
+        {
+            var like = await _dbContext.Likes.
+                FirstOrDefaultAsync(item => item.ItemId == id && item.Username == HttpContext.User.Identity.Name);
+
+            _dbContext.Likes.Remove(like);
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Details", "Item", new { Id = id });
         }
     }
 }

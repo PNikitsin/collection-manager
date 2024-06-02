@@ -10,10 +10,11 @@ namespace Collections.Infrastructure.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Collection> Coollections { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<Like> Likes { get; set; }
         public DbSet<ApplicationUser> Users { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options) { }
+            : base(options) { Database.EnsureCreated(); }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -21,4 +22,4 @@ namespace Collections.Infrastructure.Data
             base.OnModelCreating(builder);
         }
     }
-}
+} 
