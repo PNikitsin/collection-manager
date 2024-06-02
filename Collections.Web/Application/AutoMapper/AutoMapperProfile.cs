@@ -2,6 +2,7 @@
 using Collections.Domain.Entities;
 using Collections.Web.ViewModels.Admin;
 using Collections.Web.ViewModels.Collection;
+using Collections.Web.ViewModels.Comment;
 using Collections.Web.ViewModels.Item;
 
 namespace Collections.Web.Application.AutoMapper
@@ -15,6 +16,7 @@ namespace Collections.Web.Application.AutoMapper
                 .ForMember(dest => dest.Category, act => act.MapFrom(src => src.Category.Name));
             CreateMap<Item, ItemViewModel>();
             CreateMap<ApplicationUser, UserViewModel>();
+            CreateMap<Comment, CommentViewModel>();
         }
     }
 }
