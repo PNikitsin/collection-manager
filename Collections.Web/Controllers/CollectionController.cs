@@ -105,7 +105,7 @@ namespace Collections.Web.Controllers
 
             var items = _dbContext.Items.Where(item => item.CollectionId == collection.Id).ToList();
 
-            var response = _mapper.Map<DetailsCollectionViewModel>(collection);
+            var response = _mapper.Map<CollectionViewModel>(collection);
             collection.Items = items;
 
             return View(response);

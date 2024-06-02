@@ -1,6 +1,9 @@
+using AutoMapper;
 using Collections.Infrastructure.Data;
 using Collections.Web.ViewModels;
+using Collections.Web.ViewModels.Collection;
 using Collections.Web.ViewModels.Home;
+using Collections.Web.ViewModels.Item;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -11,31 +14,36 @@ namespace Collections.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext dbContext)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext dbContext, IMapper mapper)
         {
             _logger = logger;
             _dbContext = dbContext;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
-            var latestItems = _dbContext.Items
+            var items = _dbContext.Items
                 .OrderByDescending(item => item.CreatedAt)
                 .Take(5)
                 .Include(item => item.Collection)
                 .ToList();
 
-            var largestCollections = _dbContext.Coollections
-                .OrderByDescending(collection => collection.Items.Count) 
+            var collections = _dbContext.Coollections
+                .OrderByDescending(collection => collection.Items.Count)
                 .Take(5)
                 .Include(collection => collection.Category)
                 .ToList();
 
-            var response = new HomeViewModel 
+            var latestItemViewModels = _mapper.Map<IEnumerable<ItemViewModel>>(items);
+            var LargestCollectionViewModels = _mapper.Map<IEnumerable<CollectionViewModel>>(collections);
+
+            var response = new HomeViewModel
             {
-                LatestItems = latestItems,
-                LargestCollections = largestCollections
+                LatestItems = latestItemViewModels,
+                LargestCollections = LargestCollectionViewModels
             };
 
             return View(response);

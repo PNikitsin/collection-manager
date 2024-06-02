@@ -12,9 +12,11 @@ namespace Collections.Web.Application.AutoMapper
         public AutoMapperProfile()
         {
             CreateMap<CreateCollectionViewModel, Collection>();
-            CreateMap<Collection, DetailsCollectionViewModel>()
+            CreateMap<Collection, CollectionViewModel>()
                 .ForMember(dest => dest.Category, act => act.MapFrom(src => src.Category.Name));
-            CreateMap<Item, ItemViewModel>();
+            CreateMap<Item, ItemViewModel>()
+                .ForMember(dest => dest.Collection, act => act.MapFrom(src => src.Collection.Name))
+                .ForMember(dest => dest.Author, act => act.MapFrom(src => src.Collection.Author));
             CreateMap<ApplicationUser, UserViewModel>();
             CreateMap<Comment, CommentViewModel>();
         }
