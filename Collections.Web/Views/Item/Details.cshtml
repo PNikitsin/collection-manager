@@ -53,4 +53,24 @@
             }
         </div>
     </div>
+    <br />
 </div>
+
+<br />
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        <a asp-action="Create" asp-controller="Comment" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">Add a comment</a>
+    </p>
+}
+
+<br />
+@foreach (var comment in Model.Comments)
+{
+    <p>
+        <strong>@comment.Username</strong>
+        <br />
+        @comment.Text
+    </p>
+    <hr />
+}    

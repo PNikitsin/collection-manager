@@ -61,7 +61,7 @@ namespace Collections.Web.Controllers
             await _dbContext.Coollections.AddAsync(collection);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "User");
         }
 
         [HttpGet]

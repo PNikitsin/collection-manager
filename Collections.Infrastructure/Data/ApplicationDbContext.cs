@@ -11,6 +11,7 @@ namespace Collections.Infrastructure.Data
         public DbSet<Collection> Coollections { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Like> Likes { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<ApplicationUser> Users { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

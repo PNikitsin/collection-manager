@@ -34,6 +34,7 @@ namespace Collections.Web.Controllers
         {
             var item = await _dbContext.Items
                 .Include(item => item.Likes)
+                .Include(item => item.Comments)
                 .FirstOrDefaultAsync(item => item.Id == id);
 
             var response = _mapper.Map<ItemViewModel>(item);
