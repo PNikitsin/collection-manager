@@ -6,6 +6,7 @@ namespace Collections.Web.ViewModels.Comment
     {
         public int Id { get; set; }
         [Required]
+        [StringLength(512)]
         public string Text { get; set; }
         public int ItemId { get; set; }
     }
