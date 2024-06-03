@@ -124,7 +124,7 @@ namespace Collections.Web.Controllers
             _dbContext.Coollections.Remove(collection);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "User");
         }
     } 
 }
