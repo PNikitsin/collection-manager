@@ -37,6 +37,11 @@ namespace Collections.Web.Controllers
                 .Include(item => item.Comments)
                 .FirstOrDefaultAsync(item => item.Id == id);
 
+            if (item == null)
+            {
+                return NotFound();
+            }
+
             var response = _mapper.Map<ItemViewModel>(item);
 
             return View(response);
@@ -61,7 +66,7 @@ namespace Collections.Web.Controllers
             await _dbContext.Items.AddAsync(item);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("Details", "Collection", new { Id = createItemViewModel.Id });
+            return RedirectToAction("Details", "Collection", new { createItemViewModel.Id });
         }
 
         [HttpPost]

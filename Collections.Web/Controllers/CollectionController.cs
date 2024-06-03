@@ -87,26 +87,23 @@ namespace Collections.Web.Controllers
             _dbContext.Coollections.Update(collection);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("Details", "Collection", new { Id = model.Id });
+            return RedirectToAction("Details", "Collection", new { model.Id });
         }
 
         [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var collection = await _dbContext.Coollections
                 .Include(Category => Category.Category)
                 .Include(Items => Items.Items)
                 .FirstOrDefaultAsync(collection => collection.Id == id);
 
-            var items = _dbContext.Items.Where(item => item.CollectionId == collection.Id).ToList();
+            if (collection == null)
+            {
+                return NotFound();
+            }
 
             var response = _mapper.Map<CollectionViewModel>(collection);
-            collection.Items = items;
 
             return View(response);
         }
