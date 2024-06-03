@@ -8,8 +8,6 @@
         public string? CollectionPicture { get; set; }
 
         public string UserId { get; set; }
-        public User User { get; set; }
-
         public string Author { get; set; }
 
         public int CategoryId { get; set; }
