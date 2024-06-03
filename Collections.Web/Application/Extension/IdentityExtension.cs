@@ -24,7 +24,7 @@ namespace Collections.Web.Application.Extension
                     options.AppSecret = configuration["Authentication:Facebook:AppSecret"];
                 });
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            services.AddIdentity<User, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;

@@ -21,7 +21,7 @@ namespace Collections.Infrastructure.Data.EntityConfigurations
             builder.Property(category => category.Author).HasMaxLength(64)
                 .IsRequired();
 
-            builder.Property(collection => collection.ApplicationUserId)
+            builder.Property(collection => collection.UserId)
                 .IsRequired();
 
             builder.Property(collection => collection.CategoryId)

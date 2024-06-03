@@ -25,7 +25,7 @@ namespace Collections.Web.Controllers
         {
             var collections = _dbContext.Coollections
                 .Include(collections => collections.Category)
-                .Where(collection => collection.ApplicationUserId == User.GetUserId());
+                .Where(collection => collection.UserId == User.GetUserId());
 
             var response = _mapper.Map<IEnumerable<CollectionViewModel>>(collections);
 

@@ -12,13 +12,13 @@ namespace Collections.Infrastructure.Data
         public DbSet<Item> Items { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { Database.EnsureCreated(); }
 
         protected override void OnModelCreating(ModelBuilder builder)
-        {
+        {       
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(builder);
         }

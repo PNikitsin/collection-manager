@@ -14,7 +14,7 @@ namespace Collections.Infrastructure.Data
             {
                 var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
                 await roleManager.CreateAsync(new IdentityRole(Roles.Administrator.ToString()));
@@ -22,7 +22,7 @@ namespace Collections.Infrastructure.Data
 
                 #region developer
 
-                var developer = new ApplicationUser
+                var developer = new User
                 {
                     UserName = "pnikitsin@gmail.com",
                     Email = "pnikitsin@gmail.com",

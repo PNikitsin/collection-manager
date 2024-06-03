@@ -11,10 +11,10 @@ namespace Collections.Web.Controllers
     [Authorize(Roles = "Administrator")] 
     public class AdminController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
 
-        public AdminController(UserManager<ApplicationUser> userManager, IMapper mapper)
+        public AdminController(UserManager<User> userManager, IMapper mapper)
         {
             _userManager = userManager;
             _mapper = mapper;
@@ -38,7 +38,7 @@ namespace Collections.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { Email = createUserViewModel.Email, UserName = createUserViewModel.Email };
+                var user = new User { Email = createUserViewModel.Email, UserName = createUserViewModel.Email };
 
                 var result = await _userManager.CreateAsync(user, createUserViewModel.Password);
 

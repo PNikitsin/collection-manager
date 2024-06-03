@@ -9,10 +9,10 @@ namespace Collections.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -38,7 +38,7 @@ namespace Collections.Web.Controllers
                 return View(registerViewModel);
             }
 
-            user = new ApplicationUser
+            user = new User
             {
                 Email = registerViewModel.Email,
                 UserName = registerViewModel.Email,
@@ -162,7 +162,7 @@ namespace Collections.Web.Controllers
 
                     if (user == null)
                     {
-                        user = new ApplicationUser()
+                        user = new User()
                         {
                             UserName = userEmail,
                             Email = userEmail,

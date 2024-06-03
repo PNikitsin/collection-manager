@@ -17,7 +17,7 @@ namespace Collections.Web.Application.AutoMapper
             CreateMap<Item, ItemViewModel>()
                 .ForMember(dest => dest.Collection, act => act.MapFrom(src => src.Collection.Name))
                 .ForMember(dest => dest.Author, act => act.MapFrom(src => src.Collection.Author));
-            CreateMap<ApplicationUser, UserViewModel>();
+            CreateMap<User, UserViewModel>();
             CreateMap<Comment, CommentViewModel>();
         }
     }

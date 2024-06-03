@@ -54,7 +54,7 @@ namespace Collections.Web.Controllers
 
             var collection = _mapper.Map<Collection>(createCollectionViewModel);
 
-            collection.ApplicationUserId = User.GetUserId();
+            collection.UserId = User.GetUserId();
             collection.Author = User.Identity.Name;
             collection.CollectionPicture = uniqueFileName;
 

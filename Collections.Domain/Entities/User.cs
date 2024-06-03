@@ -2,8 +2,10 @@
 
 namespace Collections.Domain.Entities
 {
-    public class ApplicationUser : IdentityUser
+    public class User : IdentityUser
     {
         public bool IsBlocked { get; set; }
+
+        public List<Collection> Collections { get; set; }
     }
 }
