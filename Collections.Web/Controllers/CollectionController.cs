@@ -68,7 +68,6 @@ namespace Collections.Web.Controllers
         public IActionResult Edit(int id)
         {
             var responce = new EditCollectionViewModel { Id = id };
-
             return View(responce);
         }
 

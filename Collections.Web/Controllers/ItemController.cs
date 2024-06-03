@@ -69,6 +69,35 @@ namespace Collections.Web.Controllers
             return RedirectToAction("Details", "Collection", new { createItemViewModel.Id });
         }
 
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var response = new EditItemViewModel { Id = id };
+            return View(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditItemViewModel editItemViewModel)
+        {
+            if (!ModelState.IsValid) 
+                return View(editItemViewModel);
+
+            var item = await _dbContext.Items.FirstOrDefaultAsync(item => item.Id == editItemViewModel.Id);
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            item.Name = editItemViewModel.Name;
+            item.Description = editItemViewModel.Description;
+
+            _dbContext.Items.Update(item);
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Details", "Item", new { editItemViewModel.Id });
+        }
+
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
